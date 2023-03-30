@@ -77,12 +77,15 @@ def strategy(trader: shift.Trader, ticker: str, endtime):
             # we predict price will continue to go up
             order = shift.Order(
                 shift.Order.Type.MARKET_BUY, ticker, order_size)
+            print(f"ticker: {ticker}, type: {order.type}, price: {midprice}")
             trader.submit_order(order)
         elif (midprice < previous_price):  # price has decreased since last timestep
             # we predict price will continue to go down
             order = shift.Order(
                 shift.Order.Type.MARKET_SELL, ticker, order_size)
+            print(f"ticker: {ticker}, type: {order.type}, price: {midprice}")
             trader.submit_order(order)
+        
 
             # NOTE: If you place a sell order larger than your current long position, it will result in a short sale, which
             # requires buying power both for the initial short_sale and to close your short position.For example, if we short
@@ -156,8 +159,8 @@ def main(trader):
 
 
 if __name__ == '__main__':
-    with shift.Trader("test001") as trader:
-        trader.connect("initiator.cfg", "password")
+    with shift.Trader("slurpupalpha_test01") as trader:
+        trader.connect("initiator.cfg", "o0jFo1o0n0")
         sleep(1)
         trader.sub_all_order_book()
         sleep(1)
